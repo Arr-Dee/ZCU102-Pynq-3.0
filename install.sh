@@ -120,8 +120,8 @@ echo "$BOARD" > /etc/xocl.txt
 pushd dts/
 make
 mkdir -p /usr/local/share/pynq-venv/pynq-dts/
-cp insert_dtbo.py pynq.dtbo /usr/local/share/pynq-venv/pynq-dts/
-echo "python3 /usr/local/share/pynq-venv/pynq-dts/insert_dtbo.py" >> /etc/profile.d/pynq_venv.sh
+# cp insert_dtbo.py pynq.dtbo /usr/local/share/pynq-venv/pynq-dts/
+# echo "python3 /usr/local/share/pynq-venv/pynq-dts/insert_dtbo.py" >> /etc/profile.d/pynq_venv.sh
 
 source /etc/profile.d/pynq_venv.sh
 popd
@@ -132,56 +132,56 @@ cp pynq/sdbuild/packages/pynq/pl_server.service /lib/systemd/system
 systemctl enable pl_server
 
 #Install base overlay
-python3 -m pip install .
+# python3 -m pip install .
 
 
 #Install PYNQ-HelloWorld
-python3 -m pip install pynq-helloworld
+# python3 -m pip install pynq-helloworld
 
 
 # Install composable overlays
-pushd /tmp
-git clone https://github.com/Xilinx/PYNQ_Composable_Pipeline.git
-python3 -m pip install PYNQ_Composable_Pipeline/ --no-use-pep517
-popd
+# pushd /tmp
+# git clone https://github.com/Xilinx/PYNQ_Composable_Pipeline.git
+# python3 -m pip install PYNQ_Composable_Pipeline/ --no-use-pep517
+# popd
 
 
 # Install Pynq Peripherals
-python3 -m pip install git+https://github.com/Xilinx/PYNQ_Peripherals.git
+# python3 -m pip install git+https://github.com/Xilinx/PYNQ_Peripherals.git
 
 # Install DPU-PYNQ
-yes Y | apt remove --purge vitis-ai-runtime
-python3 -m pip install pynq-dpu --no-use-pep517
+# yes Y | apt remove --purge vitis-ai-runtime
+# python3 -m pip install pynq-dpu --no-use-pep517
 
 
 # Deliver all notebooks
-yes Y | pynq-get-notebooks -p $PYNQ_JUPYTER_NOTEBOOKS -f
+# yes Y | pynq-get-notebooks -p $PYNQ_JUPYTER_NOTEBOOKS -f
 
 # Copy additional notebooks from pynq
-cp pynq/pynq/notebooks/common/ -r $PYNQ_JUPYTER_NOTEBOOKS
+# cp pynq/pynq/notebooks/common/ -r $PYNQ_JUPYTER_NOTEBOOKS
 
 # Patch notebooks
-sed -i "s/\/home\/xilinx\/jupyter_notebooks\/common/\./g" $PYNQ_JUPYTER_NOTEBOOKS/common/python_random.ipynb
-sed -i "s/\/home\/xilinx\/jupyter_notebooks\/common/\./g" $PYNQ_JUPYTER_NOTEBOOKS/common/usb_webcam.ipynb
+# sed -i "s/\/home\/xilinx\/jupyter_notebooks\/common/\./g" $PYNQ_JUPYTER_NOTEBOOKS/common/python_random.ipynb
+# sed -i "s/\/home\/xilinx\/jupyter_notebooks\/common/\./g" $PYNQ_JUPYTER_NOTEBOOKS/common/usb_webcam.ipynb
 
-for notebook in $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/*/*.ipynb; do
-    sed -i "s/pynq.overlays.base/kv260/g" $notebook
-    sed -i "s/PMODB/PMODA/g" $notebook
-done
+# for notebook in $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/*/*.ipynb; do
+#     sed -i "s/pynq.overlays.base/kv260/g" $notebook
+#     sed -i "s/PMODB/PMODA/g" $notebook
+# done
 
-sed -i 's/Specifically a RALink WiFi dongle commonly used with \\n//g' $PYNQ_JUPYTER_NOTEBOOKS/common/wifi.ipynb
-sed -i 's/Raspberry Pi kits is connected into the board.//g' $PYNQ_JUPYTER_NOTEBOOKS/common/wifi.ipynb
+# sed -i 's/Specifically a RALink WiFi dongle commonly used with \\n//g' $PYNQ_JUPYTER_NOTEBOOKS/common/wifi.ipynb
+# sed -i 's/Raspberry Pi kits is connected into the board.//g' $PYNQ_JUPYTER_NOTEBOOKS/common/wifi.ipynb
 
 
 # Patch microblaze to use virtualenv libraries
 sed -i "s/opt\/microblaze/usr\/local\/share\/pynq-venv\/bin/g" /usr/local/share/pynq-venv/lib/python3.8/site-packages/pynq/lib/pynqmicroblaze/rpc.py
 
 # Remove unnecessary notebooks
-rm -rf $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/app* $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/grove_joystick
+# rm -rf $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/app* $PYNQ_JUPYTER_NOTEBOOKS/pynq_peripherals/grove_joystick
 
 # Change notebooks folder ownership and permissions
-chown $LOGNAME:$LOGNAME -R $PYNQ_JUPYTER_NOTEBOOKS
-chmod ugo+rw -R $PYNQ_JUPYTER_NOTEBOOKS
+# chown $LOGNAME:$LOGNAME -R $PYNQ_JUPYTER_NOTEBOOKS
+# chmod ugo+rw -R $PYNQ_JUPYTER_NOTEBOOKS
 
 
 # Start Jupyter and pl_server services now
@@ -189,8 +189,8 @@ systemctl start jupyter.service
 systemctl start pl_server.service
 
 # Purge libdrm-xlnx-dev to allow `apt upgrade`
-apt-get purge -y libdrm-xlnx-dev
-apt-get purge -y libdrm-xlnx-amdgpu1
+# apt-get purge -y libdrm-xlnx-dev
+# apt-get purge -y libdrm-xlnx-amdgpu1
 
 # Ask to connect to Jupyter
 ip_addr=$(ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
