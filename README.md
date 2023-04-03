@@ -1,18 +1,22 @@
+This repository is fork from the Kria-PYNQ repo (https://github.com/Xilinx/Kria-PYNQ), which includes changes to the install.sh file so that it runs successfully and installs Pynq 3.0 on a ZCU102 board, with Canonical Ubuntu 22.04 running.
+
+Edits to the README have been made to make reference to the ZCU102 instead of the Kria where appropriate and to help avoid confusion.]
+
 ![](./kriapynq.png)
 
-This repository contains the install scripts needed to add PYNQ to your Kria KV260 Vision AI Starter Kit's official Ubuntu SDCard Image.  From that installation, a complete Python and Jupyter environment is installed on the Kria SOM along with multiple programmable logic overlays all ready to use.  
+This repository contains the install scripts needed to add PYNQ to your ZCU 102's official Ubuntu SDCard Image.  From that installation, a complete Python and Jupyter environment is installed on the Kria SOM along with multiple programmable logic overlays all ready to use.  
 
 ## Installation
 
 #### 1. Get the Ubuntu SD Card Image 
-Follow the steps to [Get Started with Kria KV260 Vision AI Starter Kit](https://www.xilinx.com/products/som/kria/kv260-vision-starter-kit/kv260-getting-started-ubuntu/setting-up-the-sd-card-image.html) until you complete the [Booting your Starter Kit](https://www.xilinx.com/products/som/kria/kv260-vision-starter-kit/kv260-getting-started-ubuntu/booting-your-starter-kit.html) section
+Follow the steps to [Getting Started with Certified Ubuntu 22.04 LTS for Xilinx Devices](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2363129857/Getting+Started+with+Certified+Ubuntu+22.04+LTS+for+Xilinx+Devices) until you complete the [First Boot and Getting Started](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2363129857/Getting+Started+with+Certified+Ubuntu+22.04+LTS+for+Xilinx+Devices#First-Boot-and-Getting-Started) section
 
 #### 2. Install PYNQ
-Then install PYNQ on your Kria KV260 Vision AI Starter Kit.  Simply clone this repository from the KV260 and run the install.sh script.
+Then install PYNQ on your ZCU102 board.  Simply clone this repository from the ZCU102 and run the install.sh script.
 
 ```bash
-git clone https://github.com/Xilinx/Kria-PYNQ.git
-cd Kria-PYNQ/
+git clone https://github.com/Arr-Dee/ZCU102-Pynq-3.0
+cd ZCU102-Pynq-3.0/
 sudo bash install.sh
 ```
 
@@ -20,11 +24,13 @@ This script will install the required debian packages, create Python virtual env
 
 #### 3. Open Jupyter
 
-JupyterLab can now be accessed via a web browser `<ip_address>:9090/lab` or `kria:9090/lab`. The password is **xilinx**
+JupyterLab can now be accessed via a web browser `<ip_address>:9090/lab` or `zynqmp:9090/lab`. The password is **xilinx**
 
 ## Included Overlays
 
 #### Base Overlay [\[GitHub\]](kv260/base)
+OVERLAYS NOT INCLUDED.
+DPU-PYNQ tested and works on ZCU102.
 
 This overlay includes support for the KV260's Raspberry Pi camera and PMOD interfaces.  A [Digilent Pcam 5C](https://digilent.com/reference/add-ons/pcam-5c/start?redirect=1) camera can be attached to the KV260 and controlled from Jupyter notebooks.  Additionally, a variety of Grove and PMOD devices are supported on the PMOD interface - all controllable from a Xilinx Microblaze processor in programmable logic.  
 
