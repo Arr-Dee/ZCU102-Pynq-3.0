@@ -1,4 +1,0 @@
-[submodule "pynq"]
-	path = pynq
-	url = https://github.com/Xilinx/PYNQ.git
-	shallow = true
